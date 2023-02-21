@@ -1,11 +1,13 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_clean_architecture/presentation/pages/cubit/user_cubit.dart';
 
 import 'presentation/pages/home_page.dart';
-import 'di/locator.dart' as locator;
+import 'di/locator.dart' as di;
 
 void main() {
   WidgetsFlutterBinding.ensureInitialized();
-  locator.setup();
+  di.setup();
   runApp(const MyApp());
 }
 
@@ -19,7 +21,10 @@ class MyApp extends StatelessWidget {
       theme: ThemeData(
         primarySwatch: Colors.blue,
       ),
-      home: const HomePage(),
+      home: BlocProvider<UserCubit>(
+        create: (context) => UserCubit(getUsers: di.locator.get()),
+        child: const HomePage(),
+      ),
     );
   }
 }
