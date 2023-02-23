@@ -1,12 +1,15 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_clean_architecture/presentation/pages/cubit/user_cubit.dart';
+import 'package:flutter_dotenv/flutter_dotenv.dart';
 
 import 'presentation/pages/home_page.dart';
 import 'di/locator.dart' as di;
 
-void main() {
+void main() async {
   WidgetsFlutterBinding.ensureInitialized();
+
+  await dotenv.load(fileName: '.env');
   di.setup();
   runApp(const MyApp());
 }
